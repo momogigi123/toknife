@@ -79,8 +79,8 @@ toknife 是**輸入側壓縮**工具。它壓縮的是你*送進* LLM 的內容�
 ### 1. Install / 安裝
 
 ```bash
-git clone https://github.com/momomogigigi/token-saver.git
-cd token-saver
+git clone https://github.com/momogigi123/toknife.git
+cd toknife
 ```
 
 Core functionality has **zero dependencies**. For precise token counting:
@@ -266,6 +266,6 @@ This open-source version covers core input compression. For teams and users need
 ## Author / 作者
 
 - **Project / 項目**: toknife
-- **Author / 作者**: momomogigigi
-- **Repository / 倉庫**: https://github.com/momomogigigi/token-saver
+- **Author / 作者**: momogigi123
+- **Repository / 倉庫**: https://github.com/momogigi123/toknife
 - **License / 授權**: MIT

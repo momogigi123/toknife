@@ -79,5 +79,5 @@ toknife-v5.1.1/
 ## Brand / 品牌
 
 - **Project / 項目名**: **toknife**
-- **Author / 作者**: momomogigigi
-- **Repository / 倉庫**: https://github.com/momomogigigi/token-saver
+- **Author / 作者**: momogigi123
+- **Repository / 倉庫**: https://github.com/momogigi123/toknife
