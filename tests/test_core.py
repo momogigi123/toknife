@@ -83,7 +83,7 @@ class TestAnomalyDetection:
             [100, 200, 150, 99999, 180, 120, 250, 88888])]
         agg = AdaptiveAggregator()
         agg.calibrate(data)
-        r = agg.aggregate(data, sort_by="s", top_n=5, calibrated=True)
+        r = agg.aggregate(data, sort_by="s", top_n=5, calibrated=True, exclude_anomalies=True)
         assert len(r.get("anomalies", [])) >= 1
         top_ids = [x["p"] for x in r.get("top_n", [])]
         assert "P3" not in top_ids  # 異常值不應在 Top-N

@@ -137,7 +137,8 @@ class AdaptiveAggregator:
 
         n = top_n if top_n is not None else self.current_top_n
         #  保真降壓：數值表按規模保留精確行下限（防過壓丟中間值致模型編造）
-        if self.fidelity_guard and sort_by and self._is_number(data[0].get(sort_by)):
+        # 僅在用戶未明確指定 top_n 時生效；明確指定則尊重用戶意圖
+        if top_n is None and self.fidelity_guard and sort_by and self._is_number(data[0].get(sort_by)):
             fid = int(max(self.fidelity_min, len(data) * self.fidelity_ratio))
             fid = min(fid, self.fidelity_max)
             n = max(n, fid)  # 保真下限優先（不允許低於保真下限）
@@ -176,7 +177,8 @@ class AdaptiveAggregator:
         else:
             top_rows = sorted_data[:n]
         #  保真：補 tail（涵蓋極低值異常，與 head 互補；fidelity_guard 關閉或 exclude_anomalies 舊行為不補）
-        if self.fidelity_guard and self.tail_n and len(sorted_data) > n + 1 and not exclude_anomalies:
+        # 僅在用戶未明確指定 top_n 時生效；明確指定則尊重用戶意圖
+        if top_n is None and self.fidelity_guard and self.tail_n and len(sorted_data) > n + 1 and not exclude_anomalies:
             seen_keys = [tuple(str(r.get(c)) for c in cols) for r in top_rows]
             for r in sorted_data[-self.tail_n:]:
                 k = tuple(str(r.get(c)) for c in cols)
