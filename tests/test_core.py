@@ -63,13 +63,13 @@ class TestJsonCompression:
 
 class TestBOM:
     def test_bom_json_detected(self):
-        bom = "\ufeff" + json.dumps([{"id": i} for i in range(20)])
+        bom = "\ufeff" + json.dumps([{"id": i, "name": f"item_{i}", "value": i * 2} for i in range(50)])
         eng = CompressionEngine(min_tokens=100)
         _, meta = eng.process("tool", bom)
         assert meta.get("kind") == "json→csv"
 
     def test_no_bom_json(self):
-        normal = json.dumps([{"id": i} for i in range(20)])
+        normal = json.dumps([{"id": i, "name": f"item_{i}", "value": i * 2} for i in range(50)])
         eng = CompressionEngine(min_tokens=100)
         _, meta = eng.process("tool", normal)
         assert meta.get("kind") == "json→csv"
