@@ -1,7 +1,0 @@
-
-[dev]
-pytest>=7.0
-pytest-cov
-
-[tiktoken]
-tiktoken>=0.5.0

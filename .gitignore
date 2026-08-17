@@ -2,6 +2,9 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+*.egg-info/
+build/
+dist/
 .ts_cache/
 .ts_learn/
 results/
