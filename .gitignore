@@ -1,0 +1,10 @@
+# 開源發布包不應提交的文件
+__pycache__/
+*.pyc
+.pytest_cache/
+.ts_cache/
+.ts_learn/
+results/
+benchmark_llm_results*.json
+*.log
+token_router_feedback.jsonl

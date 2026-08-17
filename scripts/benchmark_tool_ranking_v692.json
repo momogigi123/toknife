@@ -1,0 +1,174 @@
+{
+  "model": "doubao-seed-2-0-pro-260215",
+  "generated_at": "2026-08-16 11:50",
+  "summary": {
+    "n": 8,
+    "avg_input_saving_pct": 45.3,
+    "avg_quality_score": 28.8,
+    "by_type": {
+      "tool_ranking": {
+        "n": 8,
+        "avg_saving": 45.3,
+        "avg_quality": 28.8
+      }
+    }
+  },
+  "results": [
+    {
+      "type": "tool_ranking",
+      "idx": 1,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8544,
+      "opt_tokens_est": 3769,
+      "baseline_prompt_tokens": 10536,
+      "optimized_prompt_tokens": 5762,
+      "input_saving_pct": 45.3,
+      "quality_score": 40,
+      "quality_reason": "候选答案正确列出了Top5产品与销售额、最高产品和异常产品，但未提及总笔数和平均销售额两个关键事实。",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales"
+      ],
+      "raw_chars": 20909,
+      "opt_chars": 6600
+    },
+    {
+      "type": "tool_ranking",
+      "idx": 2,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8548,
+      "opt_tokens_est": 3773,
+      "baseline_prompt_tokens": 10536,
+      "optimized_prompt_tokens": 5762,
+      "input_saving_pct": 45.3,
+      "quality_score": 20,
+      "quality_reason": "仅异常产品及对应销售额正确，缺失总笔数、平均销售额、正确的最高产品信息，且Top5产品及数值大部分与事实不符。",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales",
+        "top1_product",
+        "top5"
+      ],
+      "raw_chars": 20910,
+      "opt_chars": 6601
+    },
+    {
+      "type": "tool_ranking",
+      "idx": 3,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8544,
+      "opt_tokens_est": 3769,
+      "baseline_prompt_tokens": 10532,
+      "optimized_prompt_tokens": 5758,
+      "input_saving_pct": 45.3,
+      "quality_score": 20,
+      "quality_reason": "仅异常产品部分正确，其余核心事实均存在错误或缺失：笔数、平均销售额完全未提及，最高产品错误，Top5产品仅2个数值正确但排名和其余产品全错。",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales",
+        "top1_product",
+        "top5"
+      ],
+      "raw_chars": 20889,
+      "opt_chars": 6580
+    },
+    {
+      "type": "tool_ranking",
+      "idx": 4,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8527,
+      "opt_tokens_est": 3752,
+      "baseline_prompt_tokens": 10517,
+      "optimized_prompt_tokens": 5743,
+      "input_saving_pct": 45.4,
+      "quality_score": 30,
+      "quality_reason": "候选答案缺失总笔数、平均销售额信息，最高产品错误，Top5产品列表错误包含P053且遗漏P043。",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales",
+        "top1_product",
+        "top5"
+      ],
+      "raw_chars": 20856,
+      "opt_chars": 6547
+    },
+    {
+      "type": "tool_ranking",
+      "idx": 5,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8541,
+      "opt_tokens_est": 3766,
+      "baseline_prompt_tokens": 10531,
+      "optimized_prompt_tokens": 5757,
+      "input_saving_pct": 45.3,
+      "quality_score": 50,
+      "quality_reason": "候选答案正确提供了Top5产品与数值、最高产品、异常产品相关信息，但未提及总笔数、平均销售额。",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales"
+      ],
+      "raw_chars": 20879,
+      "opt_chars": 6570
+    },
+    {
+      "type": "tool_ranking",
+      "idx": 6,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8550,
+      "opt_tokens_est": 3775,
+      "baseline_prompt_tokens": 10549,
+      "optimized_prompt_tokens": 5775,
+      "input_saving_pct": 45.3,
+      "quality_score": 10,
+      "quality_reason": "仅异常产品P043及对应销售额正确，其余事实全部错误或缺失",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales",
+        "top1_product",
+        "top5",
+        "anomaly_products"
+      ],
+      "raw_chars": 20948,
+      "opt_chars": 6639
+    },
+    {
+      "type": "tool_ranking",
+      "idx": 7,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8542,
+      "opt_tokens_est": 3767,
+      "baseline_prompt_tokens": 10536,
+      "optimized_prompt_tokens": 5762,
+      "input_saving_pct": 45.3,
+      "quality_score": 30,
+      "quality_reason": "候選答案未提及總筆數、平均銷售額，Top5產品僅P043、P040正確，其餘三個產品與銷售額均錯誤，遺漏多項核心事實。",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales",
+        "top5"
+      ],
+      "raw_chars": 20903,
+      "opt_chars": 6594
+    },
+    {
+      "type": "tool_ranking",
+      "idx": 8,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8557,
+      "opt_tokens_est": 3782,
+      "baseline_prompt_tokens": 10558,
+      "optimized_prompt_tokens": 5784,
+      "input_saving_pct": 45.2,
+      "quality_score": 30,
+      "quality_reason": "候选答案漏掉总笔数、平均销售额，Top5产品剔除异常值后也与标准不符，仅异常产品信息正确",
+      "quality_miss": [
+        "total_rows",
+        "avg_sales",
+        "top1_product",
+        "top5"
+      ],
+      "raw_chars": 20912,
+      "opt_chars": 6603
+    }
+  ]
+}

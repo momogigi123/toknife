@@ -1,0 +1,162 @@
+{
+  "model": "doubao-seed-2-0-pro-260215",
+  "generated_at": "2026-08-16 11:48",
+  "summary": {
+    "n": 8,
+    "avg_input_saving_pct": 45.1,
+    "avg_quality_score": 42.5,
+    "by_type": {
+      "tool_output": {
+        "n": 8,
+        "avg_saving": 45.1,
+        "avg_quality": 42.5
+      }
+    }
+  },
+  "results": [
+    {
+      "type": "tool_output",
+      "idx": 1,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8544,
+      "opt_tokens_est": 3769,
+      "baseline_prompt_tokens": 10586,
+      "optimized_prompt_tokens": 5812,
+      "input_saving_pct": 45.1,
+      "quality_score": 20,
+      "quality_reason": "笔数、最高产品、异常产品这三个事实正确，但平均销售额误差远超允许范围，Top5产品仅列对P043和P011，其余缺失且排序错误，整体信息错漏较多。",
+      "quality_miss": [
+        "avg_sales",
+        "top5"
+      ],
+      "raw_chars": 20909,
+      "opt_chars": 6600
+    },
+    {
+      "type": "tool_output",
+      "idx": 2,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8548,
+      "opt_tokens_est": 3773,
+      "baseline_prompt_tokens": 10586,
+      "optimized_prompt_tokens": 5812,
+      "input_saving_pct": 45.1,
+      "quality_score": 80,
+      "quality_reason": "笔数、最高产品、异常产品信息均正确，平均销售额在允许误差范围内，但未完整列出Top5产品及对应数值。",
+      "quality_miss": [
+        "top5"
+      ],
+      "raw_chars": 20910,
+      "opt_chars": 6601
+    },
+    {
+      "type": "tool_output",
+      "idx": 3,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8544,
+      "opt_tokens_est": 3769,
+      "baseline_prompt_tokens": 10582,
+      "optimized_prompt_tokens": 5808,
+      "input_saving_pct": 45.1,
+      "quality_score": 30,
+      "quality_reason": "筆數、最高產品、P043的異常屬性正確，但平均銷售額誤差超過20%，未列出Top5全部產品與數值，還額外新增了不存在的異常產品P200。",
+      "quality_miss": [
+        "avg_sales",
+        "top5",
+        "anomaly_products"
+      ],
+      "raw_chars": 20889,
+      "opt_chars": 6580
+    },
+    {
+      "type": "tool_output",
+      "idx": 4,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8527,
+      "opt_tokens_est": 3752,
+      "baseline_prompt_tokens": 10567,
+      "optimized_prompt_tokens": 5793,
+      "input_saving_pct": 45.2,
+      "quality_score": 40,
+      "quality_reason": "笔数、最高产品、异常产品的事实正确，但平均销售额误差远超允许范围，且未提及Top5产品及对应数值",
+      "quality_miss": [
+        "avg_sales",
+        "top5"
+      ],
+      "raw_chars": 20856,
+      "opt_chars": 6547
+    },
+    {
+      "type": "tool_output",
+      "idx": 5,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8541,
+      "opt_tokens_est": 3766,
+      "baseline_prompt_tokens": 10581,
+      "optimized_prompt_tokens": 5807,
+      "input_saving_pct": 45.1,
+      "quality_score": 40,
+      "quality_reason": "笔数、最高产品、P043为异常产品的事实正确，但平均销售额误差远超允许范围，缺少Top5产品与对应数值的信息",
+      "quality_miss": [
+        "avg_sales",
+        "top5"
+      ],
+      "raw_chars": 20879,
+      "opt_chars": 6570
+    },
+    {
+      "type": "tool_output",
+      "idx": 6,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8550,
+      "opt_tokens_est": 3775,
+      "baseline_prompt_tokens": 10599,
+      "optimized_prompt_tokens": 5825,
+      "input_saving_pct": 45.0,
+      "quality_score": 30,
+      "quality_reason": "笔数、最高产品P043及异常产品P043正确，但平均销售额偏差远超允许范围，未完整列出Top5产品及对应销售额，还错误提及不存在的产品P042。",
+      "quality_miss": [
+        "avg_sales",
+        "top5"
+      ],
+      "raw_chars": 20948,
+      "opt_chars": 6639
+    },
+    {
+      "type": "tool_output",
+      "idx": 7,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8542,
+      "opt_tokens_est": 3767,
+      "baseline_prompt_tokens": 10586,
+      "optimized_prompt_tokens": 5812,
+      "input_saving_pct": 45.1,
+      "quality_score": 60,
+      "quality_reason": "正确包含了总笔数、最高产品、异常产品，但平均销售额误差超过20%，未完整列出Top5所有产品与对应数值",
+      "quality_miss": [
+        "avg_sales",
+        "top5"
+      ],
+      "raw_chars": 20903,
+      "opt_chars": 6594
+    },
+    {
+      "type": "tool_output",
+      "idx": 8,
+      "mode": "high_fidelity_csv",
+      "raw_tokens_est": 8557,
+      "opt_tokens_est": 3782,
+      "baseline_prompt_tokens": 10608,
+      "optimized_prompt_tokens": 5834,
+      "input_saving_pct": 45.0,
+      "quality_score": 40,
+      "quality_reason": "笔数、最高产品、异常产品及对应销售额正确，但平均销售额错误，且未完整列出Top5所有产品与数值",
+      "quality_miss": [
+        "avg_sales",
+        "top5"
+      ],
+      "raw_chars": 20912,
+      "opt_chars": 6603
+    }
+  ]
+}

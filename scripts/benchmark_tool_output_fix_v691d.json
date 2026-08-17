@@ -1,0 +1,122 @@
+{
+  "model": "doubao-seed-2-0-pro-260215",
+  "generated_at": "2026-08-16 11:36",
+  "summary": {
+    "n": 8,
+    "avg_input_saving_pct": 85.6,
+    "avg_quality_score": 48.1,
+    "by_type": {
+      "tool_output": {
+        "n": 8,
+        "avg_saving": 85.6,
+        "avg_quality": 48.1
+      }
+    }
+  },
+  "results": [
+    {
+      "type": "tool_output",
+      "idx": 1,
+      "raw_tokens_est": 8544,
+      "opt_tokens_est": 1058,
+      "baseline_prompt_tokens": 10550,
+      "optimized_prompt_tokens": 1516,
+      "input_saving_pct": 85.6,
+      "quality_score": 20,
+      "quality_reason": "销售额Top5产品的后三位完全错误，异常产品仅提及P043，缺失其余5个销售单位异常的产品及对应原因，核心信息大量错漏。",
+      "raw_chars": 20909,
+      "opt_chars": 2676
+    },
+    {
+      "type": "tool_output",
+      "idx": 2,
+      "raw_tokens_est": 8548,
+      "opt_tokens_est": 1056,
+      "baseline_prompt_tokens": 10550,
+      "optimized_prompt_tokens": 1514,
+      "input_saving_pct": 85.6,
+      "quality_score": 85,
+      "quality_reason": "销售额Top5产品的数值存在四舍五入的微小误差，且异常原因额外增加了基准未提及的销量相关、平均销售额相关表述，核心信息基本正确但存在多余内容和数值精度偏差。",
+      "raw_chars": 20910,
+      "opt_chars": 2679
+    },
+    {
+      "type": "tool_output",
+      "idx": 3,
+      "raw_tokens_est": 8544,
+      "opt_tokens_est": 1058,
+      "baseline_prompt_tokens": 10546,
+      "optimized_prompt_tokens": 1516,
+      "input_saving_pct": 85.6,
+      "quality_score": 50,
+      "quality_reason": "销售额Top5产品信息完整仅数值做了合理取整，但异常产品仅列出P043，遗漏了P200、P007、P028三个异常产品及其对应的异常原因，信息缺失较多。",
+      "raw_chars": 20889,
+      "opt_chars": 2679
+    },
+    {
+      "type": "tool_output",
+      "idx": 4,
+      "raw_tokens_est": 8527,
+      "opt_tokens_est": 1057,
+      "baseline_prompt_tokens": 10531,
+      "optimized_prompt_tokens": 1513,
+      "input_saving_pct": 85.6,
+      "quality_score": 70,
+      "quality_reason": "銷售額Top5產品基本正確僅小數點進位有差異，但明顯異常產品只提到了P043，遺漏了P155、P156等其餘符合業務邏輯的異常產品資訊，完整性不足。",
+      "raw_chars": 20856,
+      "opt_chars": 2667
+    },
+    {
+      "type": "tool_output",
+      "idx": 5,
+      "raw_tokens_est": 8541,
+      "opt_tokens_est": 1059,
+      "baseline_prompt_tokens": 10545,
+      "optimized_prompt_tokens": 1517,
+      "input_saving_pct": 85.6,
+      "quality_score": 45,
+      "quality_reason": "销售额Top5产品的信息基本正确仅数值做了合理取整，但异常产品仅提及P043，遗漏了P003和P165的异常情况，信息完整性缺失严重。",
+      "raw_chars": 20879,
+      "opt_chars": 2672
+    },
+    {
+      "type": "tool_output",
+      "idx": 6,
+      "raw_tokens_est": 8550,
+      "opt_tokens_est": 1056,
+      "baseline_prompt_tokens": 10563,
+      "optimized_prompt_tokens": 1518,
+      "input_saving_pct": 85.6,
+      "quality_score": 20,
+      "quality_reason": "销售额Top5仅P043、P085数值正确，其余3个产品与基准完全不符，异常产品仅识别出P043，遗漏了P084、P027、P061三个异常项，且P043的异常原因未提及单价偏离的核心点，信息缺失和错误较多。",
+      "raw_chars": 20948,
+      "opt_chars": 2695
+    },
+    {
+      "type": "tool_output",
+      "idx": 7,
+      "raw_tokens_est": 8542,
+      "opt_tokens_est": 1054,
+      "baseline_prompt_tokens": 10550,
+      "optimized_prompt_tokens": 1513,
+      "input_saving_pct": 85.7,
+      "quality_score": 65,
+      "quality_reason": "候選答案正確指出了異常產品P043及其異常特徵，但銷售額Top5的產品列表和對應數值有誤，缺失了基準中的P019，多了錯誤的P133，部分產品的銷售額數值也存在四捨五入或偏差，因此扣減相應分數。",
+      "raw_chars": 20903,
+      "opt_chars": 2676
+    },
+    {
+      "type": "tool_output",
+      "idx": 8,
+      "raw_tokens_est": 8557,
+      "opt_tokens_est": 1057,
+      "baseline_prompt_tokens": 10572,
+      "optimized_prompt_tokens": 1527,
+      "input_saving_pct": 85.6,
+      "quality_score": 30,
+      "quality_reason": "銷售額Top5產品有2個品項錯誤、多處數值未保留精確位，異常產品僅列出P043其餘4種均缺失，整體資訊正確性和完整性嚴重不足。",
+      "raw_chars": 20912,
+      "opt_chars": 2692
+    }
+  ]
+}
