@@ -1,0 +1,2 @@
+[console_scripts]
+ts = token_saver.cli:main
