@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "token-saver"
+version = "5.6"
+description = "LLM 上下文 Token 壓縮工具集：JSON→CSV、代碼折疊、對話歷史壓縮、MCP 透明代理、校準聚合"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [{name = "momomogigigi"}]
+keywords = ["token", "compression", "llm", "mcp", "context-window"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = []  # 零核心依賴，純 Python 標準庫
+
+[project.optional-dependencies]
+tiktoken = ["tiktoken>=0.5.0"]  # 精確 token 計數（可選，缺省自動降級為 len//3）
+dev = ["pytest>=7.0", "pytest-cov"]
+
+[project.scripts]
+ts = "token_saver.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/momomogigigi/token-saver"
+Documentation = "https://github.com/momomogigigi/token-saver#readme"
+
+[tool.setuptools.package-dir]
+token_saver = "scripts"
+
+[tool.setuptools]
+packages = ["token_saver"]
+
+[tool.setuptools.package-data]
+token_saver = ["*.json", "*.jsonl", "*.md"]
