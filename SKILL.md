@@ -5,7 +5,7 @@ displayName: Toknife - Universal Token Compression Tool
 version: "6.0.0-lite"
 category: 效率工具 / Efficiency
 tags: [AI工具, Token節省, LLM, 開源, 效率提升, token-optimizer, AI-tools, token-saving, open-source]
-description: 通用 LLM Token 壓縮工具，支援 JSON 數值保真壓縮、Code-aware 多語言代碼壓縮、MCP/API 透明代理。零第三方依賴，跨平台，開源免費。10 任務標準化基準實測平均壓縮率 54.2%。
+description: 通用 LLM Token 壓縮工具，支援 JSON 數值保真壓縮、Code-aware 多語言代碼壓縮、MCP/API 透明代理。零第三方依賴，跨平台，開源免費。10 任務標準化基準實測平均壓縮率 48.0%。
 author: momogigi123
 license: MIT
 ---
@@ -82,10 +82,10 @@ python scripts/cli.py code mycode.py --mode light
 
 | 指標 | 數值 |
 |------|:----:|
-| 平均壓縮率 | **54.2%** |
-| 中位數 | 52.0% |
-| 最大（數據分析聚合） | 90.3% |
-| 最小（摘要任務） | 14.1% |
+| 平均壓縮率 | **48.0%** |
+| 中位數 | 43.6% |
+| 最大（數據分析聚合） | 92.4% |
+| 最小（摘要任務） | 10.0% |
 
 ### 環境要求
 
@@ -180,10 +180,10 @@ python scripts/cli.py code mycode.py --mode light
 
 | Metric | Value |
 |--------|:-----:|
-| Average Compression Rate | **54.2%** |
-| Median | 52.0% |
-| Max (Data Analysis Aggregation) | 90.3% |
-| Min (Summary Task) | 14.1% |
+| Average Compression Rate | **48.0%** |
+| Median | 43.6% |
+| Max (Data Analysis Aggregation) | 92.4% |
+| Min (Summary Task) | 10.0% |
 
 ### Requirements
 
