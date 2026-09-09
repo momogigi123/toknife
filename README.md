@@ -23,12 +23,30 @@ Toknife 是一個通用的 LLM 輸入端 Token 壓縮工具集，幫你在調用
 
 | 指標 | 數值 |
 |------|:----:|
-| 平均壓縮率 | **54.2%** |
-| 中位數 | 52.0% |
-| 最大（數據分析聚合） | 90.3% |
-| 最小（摘要任務） | 14.1% |
+| 平均壓縮率 | **48.0%** |
+| 中位數 | 43.6% |
+| 最大（數據分析聚合） | 92.4% |
+| 最小（摘要任務） | 10.0% |
 
-各場景壓縮率：數據分析 90.3%｜Agent 迴圈 80.7%｜翻譯 68.9%｜代碼生成 65.2%｜QA 問答 54.6%
+各場景壓縮率：數據分析 92.4%｜Agent 迴圈 91.9%｜翻譯 45.8%｜代碼生成 39.3%｜QA 問答 47.1%
+
+
+> **可複現**：以上數字由本倉庫自帶基準產生，執行 `python scripts/benchmark.py` 即可自行驗證（10 任務 A/B，tiktoken cl100k）。
+> **誠實說明**：這是「同一份輸入、壓縮前 vs 壓縮後」的離線對比，**不是**真實 LLM 端到端實測。真實雲端場景一般落在 35–53%。請勿期待每個任務都省 48%——摘要類任務實測只有 10%。
+
+### 開源版 vs 商業版
+
+| 能力 | 開源版（本倉庫） | 商業版 |
+|------|:---:|:---:|
+| JSON / 代碼 / 對話壓縮 | ✅ | ✅ |
+| MCP/API 透明代理 | ✅ | ✅ |
+| **長文本（>2000 字元）** | ⚠️ 基礎截斷，不可還原 | ✅ 可逆外部化，100% 可還原 |
+| 自適應閉環 / 學習引擎 | ❌ | ✅ |
+| 輸出端優化 / 預算硬上限 | ❌ | ✅ |
+| 用量與節省儀表板 | ❌ | ✅ |
+| 授權 | MIT，可商用 | 商業授權 + 支援 |
+
+👉 **商業版 / 企業導入諮詢**：開一個 issue 並標記 `enterprise` → https://github.com/momogigi123/toknife/issues/new?labels=enterprise
 
 ### 快速開始
 
@@ -120,12 +138,30 @@ Toknife is a universal LLM input-side Token compression toolkit that helps you s
 
 | Metric | Value |
 |--------|:-----:|
-| Average Compression Rate | **54.2%** |
-| Median | 52.0% |
-| Max (Data Analysis Aggregation) | 90.3% |
-| Min (Summary Task) | 14.1% |
+| Average Compression Rate | **48.0%** |
+| Median | 43.6% |
+| Max (Data Analysis Aggregation) | 92.4% |
+| Min (Summary Task) | 10.0% |
 
-Per-scene rates: Data Analysis 90.3% | Agent Loop 80.7% | Translation 68.9% | Code Generation 65.2% | QA 54.6%
+Per-scene rates: Data Analysis 92.4% | Agent Loop 91.9% | Translation 45.8% | Code Generation 39.3% | QA 47.1%
+
+
+> **Reproducible**: these numbers come from this repo's own benchmark — run `python scripts/benchmark.py` to verify (10-task A/B, tiktoken cl100k).
+> **Honest note**: this is an offline before/after comparison on constructed prompts, **not** a live-LLM end-to-end measurement. Real cloud workloads typically land at 35–53%. Don't expect 48% on every task — the summary task measures only 10%.
+
+### Lite vs Commercial
+
+| Capability | Lite (this repo) | Commercial |
+|------|:---:|:---:|
+| JSON / Code / Conversation compression | ✅ | ✅ |
+| MCP/API transparent proxy | ✅ | ✅ |
+| **Long text (>2000 chars)** | ⚠️ basic truncation, not restorable | ✅ reversible offload, 100% restorable |
+| Adaptive closed loop / learning engine | ❌ | ✅ |
+| Output-side optimization / hard budget caps | ❌ | ✅ |
+| Usage & savings dashboard | ❌ | ✅ |
+| License | MIT, commercial use OK | Commercial license + support |
+
+👉 **Commercial / enterprise early access**: open an issue labeled `enterprise` → https://github.com/momogigi123/toknife/issues/new?labels=enterprise
 
 ### Quick Start
 
