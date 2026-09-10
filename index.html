@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-zh="Toknife — 砍掉長文檔與 RAG 的 LLM Token，100% 本機執行">Toknife — Cut LLM API tokens on long docs &amp; RAG, 100% local</title>
-<meta name="description" data-zh="Toknife 是本機 OpenAI 相容代理，在你的電腦上壓縮提示詞與輸出：整體省約 11% Token，長文檔/RAG 最高 32.7%。無雲端，資料不出門。" content="Toknife is a local OpenAI-compatible proxy that compresses prompts and outputs on your machine. ~11% tokens saved overall, up to 32.7% on long documents and RAG. No cloud, your data never leaves.">
+<meta name="description" data-zh="Toknife 是本機 OpenAI 相容代理，在你的電腦上同時壓縮輸入提示詞與輸出長度：英文長文檔輸入最多省 52%、中文場景輸入平均省 57%，並進一步最佳化輸出端。無雲端，資料不出門。" content="Toknife is a local OpenAI-compatible proxy that compresses both input prompts and output length on your machine. Up to 52% input savings on long English documents, 57% average input savings across Chinese scenarios, plus output optimization. No cloud, your data never leaves.">
 <meta name="keywords" content="LLM token optimization, reduce LLM cost, prompt compression, RAG token saving, OpenAI compatible proxy, local LLM cost, context compression">
 <meta name="author" content="Toknife">
 <link rel="canonical" href="https://www.toknife.app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Toknife — Cut LLM API tokens, 100% local">
-<meta property="og:description" content="Local prompt &amp; output compression. Up to 32.7% fewer tokens on long docs and RAG, reproducible benchmarks, data never leaves your machine.">
+<meta property="og:description" content="Local input &amp; output token optimization. Up to 52% fewer input tokens on long docs and 57% on Chinese scenarios, reproducible v6.9.88 benchmarks, data never leaves your machine.">
 <meta property="og:url" content="https://www.toknife.app/">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
@@ -94,7 +94,7 @@ header.nav{position:sticky;top:0;z-index:100;background:rgba(251,251,253,.72);
 .mlabel .v{font-family:var(--mono);font-weight:500}
 .track{height:8px;background:var(--line-soft);border-radius:980px;overflow:hidden}
 .fill{height:100%;border-radius:980px;background:var(--accent)}
-.fill-gray{background:#b8b8bf;width:100%}.fill-blue{width:67.3%}
+.fill-gray{background:#b8b8bf;width:100%}.fill-blue{width:47.9%}
 .meter-foot{margin-top:28px;padding-top:20px;border-top:1px solid var(--line-soft);
   display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .meter-foot .big{font-family:var(--mono);font-size:clamp(24px,3vw,30px);font-weight:600;color:var(--pos)}
@@ -132,6 +132,10 @@ table.data th,table.data td{padding:15px 18px;text-align:left;border-bottom:1px 
 table.data tr:last-child td{border-bottom:none}
 table.data th{background:var(--gray);font-weight:600;font-size:12.5px;color:var(--muted)}
 table.data td.num,table.data th.num{text-align:right;font-family:var(--mono)}
+table.data td.ctr,table.data th.ctr{text-align:center;font-family:var(--mono);width:11%}
+table.data th.hl,table.data td.hl{background:#eef5ff;font-weight:700;color:var(--accent)}
+table.feat td:first-child{font-size:14px}
+table.feat .fc{color:var(--muted);font-size:11.5px}
 .pos{color:var(--pos);font-weight:600}.negv{color:var(--neg);font-weight:600}
 .note{margin-top:22px;font-size:13.5px;color:var(--muted);line-height:1.6;text-align:left}
 /* pricing */
@@ -259,7 +263,7 @@ footer{background:var(--gray);padding:52px 0 34px;color:var(--muted)}
   <div class="wrap">
     <div class="eyebrow" data-zh="本機執行 · OpenAI 相容 · 免註冊">Local · OpenAI-compatible · No account</div>
     <h1 data-zh="砍掉長文檔與 RAG 的 LLM API 帳單——100% 在你的電腦上執行。">Cut your LLM API bill on long docs &amp; RAG — 100% on your machine.</h1>
-    <p class="lead" data-zh="Toknife 在本機壓縮提示詞與輸出：整體省約 11% Token，長文檔與 RAG 最高省 32.7%。沒有雲端中繼，你的提示詞永遠不離開電腦。">Toknife compresses prompts and outputs locally: about 11% fewer tokens overall and up to 32.7% on long documents and RAG. No cloud relay, and your prompts never leave your computer.</p>
+    <p class="lead" data-zh="Toknife 在你的電腦上同時壓縮「輸入提示詞」與「輸出長度」兩端：英文長文檔輸入最多省 52%、中文場景輸入平均省 57%，輸出端再依任務類型精簡。沒有雲端中繼，你的提示詞永遠不離開電腦。">Toknife compresses both sides of every call on your machine — input prompts and output length: up to 52% input savings on long English documents, 57% average input savings across Chinese scenarios, with output trimmed by task type. No cloud relay, and your prompts never leave your computer.</p>
     <div class="hero-cta">
       <button class="btn btn-primary" data-soon="The free 7-day trial build will be available here at launch." data-soon-zh="7 天免費試用版於上線時在此開放下載。" data-zh="免費試用 7 天">Start free 7-day trial</button>
       <a class="btn-link" href="#pricing" data-zh="查看定價">See pricing
@@ -272,18 +276,18 @@ footer{background:var(--gray);padding:52px 0 34px;color:var(--muted)}
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span data-zh="資料不出門">Data never leaves</span></span>
     </div>
     <div class="meter-card" role="img" aria-label="Token usage measured through API usage field">
-      <div class="meter-title"><span data-zh="相同提示詞 · 以 API usage 欄位量測">SAME PROMPT · MEASURED VIA API usage</span><span>EN · v6.9.87</span></div>
+      <div class="meter-title"><span data-zh="相同提示詞 · 以 API usage 欄位量測">SAME PROMPT · MEASURED VIA API usage</span><span data-zh="雙語 · v6.9.88 · deepseek-chat">EN/ZH · v6.9.88 · deepseek-chat</span></div>
       <div class="mrow">
         <div class="mlabel"><span data-zh="未使用 Toknife（直連）">Direct, no Toknife</span><span class="v">1,000,000 tok</span></div>
         <div class="track"><div class="fill fill-gray"></div></div>
       </div>
       <div class="mrow">
-        <div class="mlabel"><span data-zh="使用 Toknife · 長文檔/RAG">With Toknife · long-doc / RAG</span><span class="v">673,000 tok</span></div>
+        <div class="mlabel"><span data-zh="使用 Toknife · 長文檔輸入">With Toknife · long-doc input</span><span class="v">479,000 tok</span></div>
         <div class="track"><div class="fill fill-blue"></div></div>
       </div>
       <div class="meter-foot">
-        <div><div class="big">−32.7%</div><div class="cap" data-zh="長文檔／RAG 場景">long-document / RAG scenario</div></div>
-        <div style="text-align:right"><div class="big" style="color:var(--ink)">−11.1%</div><div class="cap" data-zh="整體（8 個場景）">overall, 8 scenarios</div></div>
+        <div><div class="big">−52.1%</div><div class="cap" data-zh="英文長文檔 · 輸入端">EN long-doc · input side</div></div>
+        <div style="text-align:right"><div class="big" style="color:var(--pos)">−57.2%</div><div class="cap" data-zh="中文 5 場景 · 輸入端平均">Chinese, 5 scenarios · input avg</div></div>
       </div>
     </div>
   </div>
@@ -303,15 +307,15 @@ footer{background:var(--gray);padding:52px 0 34px;color:var(--muted)}
       </div>
       <div class="card">
         <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-zh="「長上下文又慢又貴。」">“Long context is slow and expensive.”</span></div>
-        <div class="a" data-zh="長文檔與 RAG 檢索結果最高省 <b>32.7%</b>。">Up to <b>32.7% saved</b> on long documents and RAG retrieval results.</div>
+        <div class="a" data-zh="長文檔輸入最多省 <b>52%</b>，中文長文與多輪場景輸入平均約 <b>57%</b>。">Up to <b>52% saved</b> on long-document input (about <b>57%</b> across Chinese long-text and multi-turn scenarios).</div>
       </div>
       <div class="card">
         <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-zh="「我不想把資料放到別人的雲端。」">“I don’t want my data in someone’s cloud.”</span></div>
         <div class="a" data-zh="一切都在你電腦上以本機代理執行——<b>我們永遠看不到你的提示詞</b>。">Everything runs locally as a proxy on your machine — <b>we never see your prompts</b>.</div>
       </div>
       <div class="card">
-        <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-zh="「別人號稱省 60%，實測只有 8.5%。」">“Others claim 60% savings, real tests show 8.5%.”</span></div>
-        <div class="a" data-zh="我們公開原始用量資料，<b>連負值也如實列出</b>，讓你能自行複現。">We publish raw usage data with method and <b>negatives included</b>, so you can reproduce it.</div>
+        <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-zh="「看不懂、也無法複現的節省數字。」">“Headline savings I can’t reproduce or trust.”</span></div>
+        <div class="a" data-zh="我們公開每場景的原始 usage 與方法，<b>輸入、輸出分開列、弱項也如實列出</b>，讓你能自行複現。">We publish raw usage and method for every scenario — <b>input and output shown separately, weak cases included</b> — so you can reproduce it.</div>
       </div>
     </div>
   </div>
@@ -342,33 +346,31 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
 <section id="benchmarks">
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow" data-zh="基準測試 · 不做浮誇均值">BENCHMARKS · NO VANITY AVERAGES</div>
-      <h2 data-zh="公開數字，也公認沒有效的場景">We publish the number, and the cases where it doesn’t help</h2>
-      <p data-zh="節省只來自供應商回傳的 usage 欄位——相同提示詞，直連對比經代理。英文 v6.9.87、8 個場景、DeepSeek，不挑對自己有利的單一均值。">Savings are computed only from the provider’s returned <span class="mono">usage</span> field — same prompts, direct vs. proxied. English v6.9.87, 8 scenarios, DeepSeek. We don’t cherry-pick a single flattering mean.</p>
+      <div class="eyebrow" data-zh="基準測試 · 輸入與輸出分開算">BENCHMARKS · INPUT AND OUTPUT, MEASURED APART</div>
+      <h2 data-zh="多數工具只量輸入端；我們兩端都量，還分中英文">Most tools measure only the input side. We measure both — in English and Chinese.</h2>
+      <p data-zh="節省只來自供應商回傳的 usage 欄位：相同提示詞，直連 vs 經代理。為避免「輸入＋輸出節省除以總量」把數字稀釋，以下把輸入端、輸出端分開呈現。模型 deepseek-chat、版本 v6.9.88，原始資料可複現，弱項一併列出。">Savings come only from the provider’s returned <span class="mono">usage</span> field: identical prompts, direct vs proxied. To avoid diluting the figure by pooling both sides together, input and output are reported separately. Model deepseek-chat, build v6.9.88; the raw data is reproducible and weak cases are listed too.</p>
     </div>
     <div class="bench-grid">
       <div class="reveal">
-        <div class="bar-row"><div class="bl"><span data-zh="長文檔／RAG">Long documents / RAG</span><span class="bv">−32.7%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
-        <div class="bar-row"><div class="bl"><span data-zh="整體（全部場景）">Overall (all scenarios)</span><span class="bv">−11.1%</span></div><div class="bar-track"><div class="bar-fill" style="width:34%"></div></div></div>
-        <div class="bar-row"><div class="bl"><span data-zh="輸入 Token">Input tokens</span><span class="bv">−11.8%</span></div><div class="bar-track"><div class="bar-fill" style="width:36%"></div></div></div>
-        <div class="bar-row"><div class="bl"><span data-zh="輸出 Token">Output tokens</span><span class="bv">−8.3%</span></div><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div></div>
-        <div class="bar-row"><div class="bl"><span data-zh="代碼密集">Code-heavy</span><span class="bv">−5.3%</span></div><div class="bar-track"><div class="bar-fill" style="width:16%"></div></div></div>
-        <div class="bar-row"><div class="bl"><span data-zh="數據／結構化">Data / structured</span><span class="bv">−4.9%</span></div><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div></div>
-        <div class="bar-row"><div class="bl"><span data-zh="多輪對話（略為負值）">Multi-turn dialogue</span><span class="bv negv" data-zh="−（−1.0%）· 略差">−(−1.0%) · slightly worse</span></div><div class="bar-track"><div class="bar-fill neg" style="width:4%"></div></div></div>
-        <div class="note" data-zh="開源 Lite 在其「離線」模式可達約 48%——那是更嚴格的離線專用設定，獨立列示、不混入線上數字。英文場景品質 8/8 通過；弱與失敗案例同樣列出，不隱藏。">The open-source Lite build reaches ~48% in its <b>offline</b> mode — a different, stricter offline-only setting, shown separately rather than blended into the online number. Quality checks passed 8/8 English scenarios; failing or weak cases are listed, not hidden.</div>
+        <div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:12px;letter-spacing:.04em" data-zh="英文 · 8 場景 · 輸入端">ENGLISH · 8 SCENARIOS · INPUT SIDE</div>
+        <div class="bar-row"><div class="bl"><span data-zh="長文問答">Long-doc Q&amp;A</span><span class="bv">−52.1%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="API 設計">API design</span><span class="bv">−45.3%</span></div><div class="bar-track"><div class="bar-fill" style="width:87%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="長文摘要">Summarize long doc</span><span class="bv">−27.3%</span></div><div class="bar-track"><div class="bar-fill" style="width:52%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="多輪長對話">Multi-turn long context</span><span class="bv">−5.4%</span></div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="代碼審查／重構">Code review / refactor</span><span class="bv">−4.4%</span></div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="大數據分析">Large-data analysis</span><span class="bv">−4.0%</span></div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div></div>
+        <div class="bar-row" style="margin-top:6px"><div class="bl"><b><span data-zh="8 場景輸入合計">8-scenario input, blended</span></b><span class="bv"><b>−13.3%</b></span></div><div class="bar-track"><div class="bar-fill" style="width:26%;background:var(--ink)"></div></div></div>
+        <div class="note" data-zh="程式碼本身已很緊密，輸入壓縮天花板約 10%，而程式碼場景占本次輸入 token 的 76%，把綜合值拉下來——長文／散文類才是輸入壓縮的主戰場。輸出端在長問答實測最高約 59%、數據類約 31%（輸出長度有模型隨機性，僅供參考）；8 場景回答品質 8/8 通過。">Code is already dense, with an input-compression ceiling near 10%, and code scenarios account for 76% of input tokens in this run — which pulls the blended figure down. Long-form prose is where input compression shines. On the output side, a long-answer case saved ~59% and data tasks ~31% (output length varies run to run, treat as indicative). Answer quality passed 8/8 scenarios.</div>
       </div>
       <div class="reveal">
-        <table class="data">
-          <thead><tr><th data-zh="工具">Tool</th><th class="num" data-zh="官方宣稱">Vendor claim</th><th class="num" data-zh="獨立實測">Independent test</th></tr></thead>
-          <tbody>
-            <tr><td>Caveman</td><td class="num">65–75%</td><td class="num pos">8.5%</td></tr>
-            <tr><td>Ponytail</td><td class="num">22%</td><td class="num pos">10.3%</td></tr>
-            <tr><td>RTK</td><td class="num">60–90%</td><td class="num negv">+7.6%</td></tr>
-            <tr><td>Headroom</td><td class="num">44.9%</td><td class="num negv">−3.3%</td></tr>
-            <tr><td><b>Toknife</b></td><td class="num">—</td><td class="num pos">11.1% / 32.7% docs</td></tr>
-          </tbody>
-        </table>
-        <div class="note" data-zh="獨立複測以同一套測試架構跑所有工具，宣稱才得以比較。無法複現的漂亮數字只是風險——試用期請在自己的資料上實測。">Independent re-tests use one shared harness for every tool so claims are comparable. A headline you cannot reproduce is a liability — run the same test on your own data during the trial.</div>
+        <div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:12px;letter-spacing:.04em" data-zh="中文 · 5 場景 · 輸入端（15,956 → 6,833 tok）">CHINESE · 5 SCENARIOS · INPUT SIDE (15,956 → 6,833 tok)</div>
+        <div class="bar-row"><div class="bl"><span data-zh="程式碼審查">Code review</span><span class="bv">−62.2%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="多輪對話">Multi-turn dialogue</span><span class="bv">−59.8%</span></div><div class="bar-track"><div class="bar-fill" style="width:96%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="長文問答">Long-doc Q&amp;A</span><span class="bv">−59.2%</span></div><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="長文摘要">Long-doc summary</span><span class="bv">−52.9%</span></div><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div></div>
+        <div class="bar-row"><div class="bl"><span data-zh="短問答（內容過短，不壓）">Short Q&amp;A (too short, left as-is)</span><span class="bv">0.0%</span></div><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div></div>
+        <div class="bar-row" style="margin-top:6px"><div class="bl"><b><span data-zh="5 場景輸入合計">5-scenario input, blended</span></b><span class="bv"><b>−57.2%</b></span></div><div class="bar-track"><div class="bar-fill" style="width:92%;background:var(--ink)"></div></div></div>
+        <div class="note" data-zh="另以 60 個中文真實任務做品質評判（LLM-as-judge，0–100 分）：日常對話／系統提示／增量／程式碼四類平均約 83 分、程式碼類 92 分，對話類輸入約省 73% 且品質約 83。極限的工具輸出壓縮雖可達約 96%，但品質明顯下滑，因此產品預設不走極限檔——連同弱項如實揭露。">A separate set of 60 real Chinese tasks was scored for quality (LLM-as-judge, 0–100): everyday dialogue, system prompts, incremental state and code averaged about 83, with code at 92; dialogue cut input ~73% while keeping quality near 83. Aggressive tool-output compression can reach ~96% but clearly lowers quality, so the product does not use that extreme preset by default — the weak case is disclosed as well.</div>
         <button class="btn btn-link" style="padding-left:0" data-soon="The raw benchmark dataset and reproduction script ship with Docs at launch." data-soon-zh="原始基準資料與複現腳本於上線時隨文件開放。" data-zh="取得原始資料與方法">Get raw data &amp; method
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
       </div>
@@ -408,36 +410,27 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow" data-zh="為什麼選擇 TOKNIFE">WHY TOKNIFE</div>
-      <h2 data-zh="在已被驗證的品類裡，把做法做對">A verified category, done differently</h2>
-      <p data-zh="Token 省錢已被學界與開源專案驗證；差別在於怎麼做才值得你信任。">Token-saving is a proven category — the difference is in how it’s built and whether you can trust the numbers.</p>
+      <h2 data-zh="一套完整能力，逐項對照">A full toolkit, feature by feature</h2>
+      <p data-zh="這裡只對照「功能有無」，不對節省率數字做評判；依各專案公開資訊整理，功能會持續演進，請以各專案官方頁面為準。">This compares only which features exist — not anyone’s savings numbers. It is compiled from public project information; features evolve, so please verify on each project’s official page.</p>
     </div>
-    <div class="vs reveal">
-      <div class="vs-hd"><span data-zh="品類常見現況">The category, often</span><span class="mid">·</span><span>Toknife</span></div>
-      <div class="vs-row">
-        <div class="vs-bad" data-zh="綁定單一生態、只做單端最佳化">Locked to one ecosystem, single-end optimization</div>
-        <div class="vs-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="vs-good" data-zh="輸入＋輸出雙端最佳化，相容所有 OpenAI 模型">Dual-end optimization for any OpenAI-compatible model</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-bad" data-zh="官方宣稱省 60–75%，獨立實測僅約 8.5%">Claims of 60–75%, independent tests closer to 8.5%</div>
-        <div class="vs-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="vs-good" data-zh="誠實、可複現的數字，連負值都如實列出">Honest, reproducible numbers — negatives included</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-bad" data-zh="還得自己安裝 skill 或寫腳本">Skills or scripts you must wire up yourself</div>
-        <div class="vs-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="vs-good" data-zh="一鍵安裝 App，改 base_url 即用">One-click app — change base_url and go</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-bad" data-zh="付費層藏在雲端閘道後、或還在候補名單">Paid tiers behind a cloud gateway or a waitlist</div>
-        <div class="vs-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="vs-good" data-zh="本機執行、資料不出門、現在就能用">Runs locally, data stays in, works right now</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-bad" data-zh="主要面向矽谷英文開發者">Built mainly for Silicon Valley English developers</div>
-        <div class="vs-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-        <div class="vs-good" data-zh="同時顧及產業團隊與非英文母語 IT">Also built for industry &amp; non-English IT teams</div>
-      </div>
+    <div class="reveal" style="overflow-x:auto">
+      <table class="data feat">
+        <thead><tr>
+          <th data-zh="能力">Capability</th>
+          <th class="ctr">Caveman</th><th class="ctr">Ponytail</th><th class="ctr">RTK</th>
+          <th class="ctr hl" data-zh="Toknife">Toknife</th>
+        </tr></thead>
+        <tbody>
+          <tr><td data-zh="輸入端壓縮">Input compression</td><td class="ctr">✓</td><td class="ctr">◐ <span class="fc" data-zh="僅程式碼">code</span></td><td class="ctr">✓</td><td class="ctr hl">✓</td></tr>
+          <tr><td data-zh="輸出端最佳化">Output optimization</td><td class="ctr">—</td><td class="ctr">—</td><td class="ctr">—</td><td class="ctr hl">✓</td></tr>
+          <tr><td data-zh="相容任意 OpenAI 模型">Works with any OpenAI-compatible model</td><td class="ctr">◐ <span class="fc" data-zh="僅 Claude">Claude</span></td><td class="ctr">◐ <span class="fc" data-zh="僅 Claude">Claude</span></td><td class="ctr">◐</td><td class="ctr hl">✓</td></tr>
+          <tr><td data-zh="一鍵安裝 App">One-click app install</td><td class="ctr">◐ <span class="fc" data-zh="Skill">skill</span></td><td class="ctr">◐ <span class="fc" data-zh="Skill">skill</span></td><td class="ctr">◐</td><td class="ctr hl">✓</td></tr>
+          <tr><td data-zh="圖形儀表板">GUI dashboard</td><td class="ctr">—</td><td class="ctr">—</td><td class="ctr">—</td><td class="ctr hl">✓</td></tr>
+          <tr><td data-zh="保真機制（紅線·可逆·往返）">Fidelity safeguards (red-line · reversible · round-trip)</td><td class="ctr">◐</td><td class="ctr">✓</td><td class="ctr">—</td><td class="ctr hl">✓</td></tr>
+          <tr><td data-zh="自學習 · 場景自適應">Self-learning · scene-adaptive</td><td class="ctr">—</td><td class="ctr">—</td><td class="ctr">—</td><td class="ctr hl">✓</td></tr>
+        </tbody>
+      </table>
+      <div class="note" data-zh="✓ 內建支援　◐ 部分或限定場景　— 未提供。Toknife 受開源社群啟發（含 Caveman 的精簡提示概念、Ponytail 的程式碼感知壓縮、RTK 的透明量測），我們站在這些專案的貢獻上往前做，並致謝整個開源社群。">✓ built in　◐ partial or limited　— not offered. Toknife is inspired by the open-source community — including Caveman’s terse-prompt idea, Ponytail’s code-aware compression and RTK’s transparent measurement — and builds forward on their contributions with thanks.</div>
     </div>
   </div>
 </section>
@@ -450,9 +443,9 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
       <h2 data-zh="上下文堆得越多，省得越多">Strongest where context piles up</h2>
     </div>
     <div class="grid3">
-      <div class="card reveal"><div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:10px">LONG-DOC · RAG</div><h3 data-zh="長文問答與知識庫">Long-document Q&amp;A &amp; knowledge bases</h3><p data-zh="大型檢索片段、報告與逐字稿，在進入上下文視窗前先壓縮。">Large retrieved chunks, reports and transcripts before they hit the context window.</p><div class="mono" style="color:var(--pos);font-weight:600;margin-top:12px" data-zh="最高 −32.7%·最適配">up to −32.7% · strongest fit</div></div>
-      <div class="card reveal"><div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:10px">MULTI-TURN AGENT</div><h3 data-zh="長任務 Agent 與長對話">Long-running agents &amp; sessions</h3><p data-zh="跨輪壓縮滾動歷史與累積的工具輸出，撐住更長的上下文。">Rolling history and accumulated tool output compressed across turns to hold context longer.</p><div class="mono" style="color:var(--pos);font-weight:600;margin-top:12px" data-zh="對話越長越有感">compounding as sessions grow</div></div>
-      <div class="card reveal"><div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:10px">CODE</div><h3 data-zh="代碼密集工況">Code-heavy workloads</h3><p data-zh="代碼本身已緊密，節省有限。我們如實說——請在試用時用你的程式庫驗證。">Code is already dense, so gains are modest. We say so up front — validate on your repo in the trial.</p><div class="mono" style="color:var(--neg);font-weight:600;margin-top:12px" data-zh="約 −5.3%·有限，如實說明">about −5.3% · modest, honest</div></div>
+      <div class="card reveal"><div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:10px">LONG-DOC · RAG</div><h3 data-zh="長文問答與知識庫">Long-document Q&amp;A &amp; knowledge bases</h3><p data-zh="大型檢索片段、報告與逐字稿，在進入上下文視窗前先壓縮。">Large retrieved chunks, reports and transcripts before they hit the context window.</p><div class="mono" style="color:var(--pos);font-weight:600;margin-top:12px" data-zh="輸入最高 −52%·最適配">input up to −52% · strongest fit</div></div>
+      <div class="card reveal"><div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:10px">MULTI-TURN AGENT</div><h3 data-zh="長任務 Agent 與長對話">Long-running agents &amp; sessions</h3><p data-zh="跨輪壓縮滾動歷史與累積的工具輸出，撐住更長的上下文。">Rolling history and accumulated tool output compressed across turns to hold context longer.</p><div class="mono" style="color:var(--pos);font-weight:600;margin-top:12px" data-zh="中文多輪輸入 −59.8%">Chinese multi-turn input −59.8%</div></div>
+      <div class="card reveal"><div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:10px">CODE</div><h3 data-zh="代碼密集工況">Code-heavy workloads</h3><p data-zh="代碼本身已緊密，節省有限。我們如實說——請在試用時用你的程式庫驗證。">Code is already dense, so gains are modest. We say so up front — validate on your repo in the trial.</p><div class="mono" style="color:var(--neg);font-weight:600;margin-top:12px" data-zh="輸入約 −4%·有限，如實說明">input ~−4% · modest, honest</div></div>
     </div>
   </div>
 </section>
@@ -463,7 +456,7 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
       <div class="sec-head" style="margin-bottom:30px">
         <div class="eyebrow" data-zh="定價 · 訂閱為主">PRICING · SUBSCRIPTION-FIRST</div>
         <h2 data-zh="先免費用，真的降低帳單再付費">Start free. Pay only if it actually lowers your bill.</h2>
-        <p data-zh="本機軟體採時限授權——沒有需要持續花錢維護的託管伺服器。預設年付，也最划算。">Local software with time-based licenses — there is no hosted service to keep paying a server for. Annual is the default and the best value.</p>
+        <p data-zh="本機軟體採時限授權——沒有需要持續花錢維護的託管伺服器。預設年付、約省 35%。">Local software with time-based licenses — there is no hosted service to keep paying a server for. Annual is the default and saves about 35%.</p>
       </div>
       <div class="bill" role="tablist">
         <button id="billAnnual" class="on" data-zh="年付（省 35%）">Annual <span class="mono">(save 35%)</span></button>
@@ -484,10 +477,10 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
         <button class="btn btn-dark" data-soon="The open-source Lite build links here at launch." data-soon-zh="開源 Lite 版於上線時在此連結開放。" data-zh="取得 Lite">Get Lite</button>
       </div>
       <div class="plan feat reveal">
-        <div class="ribbon" data-zh="最受歡迎">most popular</div>
+        <div class="ribbon" data-zh="推薦首選">Recommended</div>
         <h3>Pro</h3>
         <div class="price" id="proPrice">$39<small>/yr</small></div>
-        <div class="sub" id="proSub">≈ $3.25/mo · best value</div>
+        <div class="sub" id="proSub">≈ $3.25/mo · annual</div>
         <ul>
           <li data-zh="完整雙端引擎">Full dual-end engine</li>
           <li data-zh="所有 OpenAI 相容模型">All OpenAI-compatible models</li>
@@ -522,14 +515,10 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
         <button class="btn btn-dark" data-soon="Business inquiries route to our team mailbox once the support address is set." data-soon-zh="客服信箱設定後，企業諮詢將轉至團隊信箱。" data-zh="聯絡我們">Talk to us</button>
       </div>
     </div>
-    <div class="lifetime-bar reveal">
+    <div class="lifetime-bar reveal" style="justify-content:center;text-align:center">
       <div>
-        <div class="lt-t" data-zh="不喜歡訂閱？終身 Pro">Dislike subscriptions? Lifetime Pro</div>
-        <div class="lt-s" data-zh="同一引擎、一次付清·含 1 年更新，之後年維護費 $15 採計">Same engine, one payment · 1 year of updates included, then optional $15/yr maintenance</div>
-      </div>
-      <div class="right">
-        <div class="lt-p">$79</div>
-        <button class="btn btn-dark" data-soon="The one-time Lifetime option is added at store launch." data-soon-zh="一次性終身選項於商店上線時提供。" data-zh="購買終身版">Buy lifetime</button>
+        <div class="lt-t" data-zh="全部方案皆為訂閱制">Subscription-first, by design</div>
+        <div class="lt-s" data-zh="月付可隨時取消、年付更省；不做一次性終身版，才能持續提供更新與相容維護。">Cancel a monthly plan anytime, or save with annual. There is no one-time lifetime tier — so ongoing updates and compatibility are sustained.</div>
       </div>
     </div>
   </div>
@@ -564,10 +553,10 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
       <h2 data-zh="直截了當，包括為難的問題">Straight answers, including the awkward ones</h2>
     </div>
     <div class="faq-list">
-      <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="壓縮會影響回答品質嗎？">Will compression hurt answer quality?</span><span class="pm"></span></button><div class="ans" data-zh="英文實測 8/8 場景品質通過，完整基準含弱與失敗案例一併公開。付費前你可以在 7 天試用中用自己的資料驗證。">On English tests, quality passed 8/8 scenarios. We publish the full benchmark with weak and failing cases listed. You can verify on your own data during the 7-day trial before paying.</div></div>
+      <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="壓縮會影響回答品質嗎？">Will compression hurt answer quality?</span><span class="pm"></span></button><div class="ans" data-zh="英文 8 場景回答品質 8/8 通過；另以 60 個中文真實任務評判（滿分 100），日常對話、程式碼等場景平均約 83 分、程式碼類 92 分。我們把弱項（例如極限工具輸出壓縮）也一併公開，你可在 7 天試用中用自己的資料驗證。">Answer quality passed 8/8 English scenarios; a separate set of 60 real Chinese tasks was scored 0–100 and averaged about 83 on everyday dialogue and code tasks (92 for code). Weak cases — such as aggressive tool-output compression — are disclosed too. Verify on your own data during the 7-day trial.</div></div>
       <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="資料會上傳到伺服器嗎？">Does my data go to a server?</span><span class="pm"></span></button><div class="ans" data-zh="不會。Toknife 是本機 OpenAI 相容代理，提示詞不離開你的電腦，無帳號、無雲端中繼。">No. Toknife is a local OpenAI-compatible proxy; your prompts never leave your machine. There is no account and no cloud relay.</div></div>
       <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="和模型內建的省 Token 功能差在哪？">How is this different from a model’s built-in token saving?</span><span class="pm"></span></button><div class="ans" data-zh="內建模式只做單端、且綁定單一廠商。Toknife 做輸入＋輸出雙端最佳化，相容任何 OpenAI 模型，一鍵啟用，無需安裝外掛。">Built-in modes are single-end and locked to one vendor. Toknife does input + output dual-end optimization, works with any OpenAI-compatible model, and turns on in one click — no plugin to install.</div></div>
-      <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="為何同時提供訂閱與終身？">Why offer both subscription and lifetime?</span><span class="pm"></span></button><div class="ans" data-zh="訂閱（$5/月、$39/年）資助持續更新、成本可預期；終身 $79 給不喜歡訂閱的人：同一引擎、含 1 年更新，之後年維護費 $15 採計。">Subscription ($5/mo, $39/yr) funds continuous updates and keeps cost predictable. Lifetime ($79) is for people who avoid subscriptions: the same engine with 1 year of updates, then optional $15/yr maintenance.</div></div>
+      <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="為何只提供訂閱、沒有終身版？">Why subscription-only, with no lifetime option?</span><span class="pm"></span></button><div class="ans" data-zh="訂閱（$5/月、$39/年）讓我們能持續投入相容更新與模型適配，成本也好預期；月付可隨時取消、年付更省，你可以在 7 天試用後再決定。">Subscriptions ($5/mo, $39/yr) fund ongoing compatibility updates and model support while keeping cost predictable. Cancel monthly anytime or save with annual — decide after the 7-day trial.</div></div>
       <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="支援哪些模型？">Which models are supported?</span><span class="pm"></span></button><div class="ans" data-zh="任何 OpenAI 相容端點（DeepSeek、OpenAI、或經代理的本機 LLM），不綁定單一助手生態。">Any OpenAI-compatible endpoint — DeepSeek, OpenAI, or local LLMs through a proxy. It is not locked to a single assistant ecosystem.</div></div>
       <div class="acc"><button class="acc-head" aria-expanded="false"><span data-zh="退款機制為何？">How do refunds work?</span><span class="pm"></span></button><div class="ans" data-zh="先有全功能 7 天試用；不合用於 7 天內退款、無需理由。爭議或過期案件會暫停並與負責人確認，而非自動拒絕。">You get a full-function 7-day trial first. If it isn’t a fit, a refund within 7 days is no-questions. Disputed or overdue cases are paused and reviewed with the owner rather than auto-denied.</div></div>
     </div>
@@ -575,10 +564,10 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
 </section>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Will compression hurt answer quality?","acceptedAnswer":{"@type":"Answer","text":"On English tests quality passed 8/8 scenarios; the full benchmark, including weak cases, is published and reproducible in the 7-day trial."}},
+{"@type":"Question","name":"Will compression hurt answer quality?","acceptedAnswer":{"@type":"Answer","text":"Answer quality passed 8/8 English scenarios; a separate 60-task Chinese evaluation averaged about 83/100 on everyday dialogue and code tasks (92 for code). Weak cases are disclosed; verify on your own data in the 7-day trial."}},
 {"@type":"Question","name":"Does my data go to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Toknife is a local OpenAI-compatible proxy; prompts never leave your machine and no account is required."}},
 {"@type":"Question","name":"How is this different from a model's built-in token saving?","acceptedAnswer":{"@type":"Answer","text":"Built-in modes are single-end and vendor-locked; Toknife does dual-end input and output optimization across any OpenAI-compatible model in one click."}},
-{"@type":"Question","name":"Why both subscription and lifetime?","acceptedAnswer":{"@type":"Answer","text":"Subscription funds continuous updates at $5/mo or $39/yr; Lifetime at $79 is the same engine with one year of updates and optional $15/yr maintenance after."}},
+{"@type":"Question","name":"Why subscription-only, with no lifetime option?","acceptedAnswer":{"@type":"Answer","text":"Subscriptions at $5/mo or $39/yr fund ongoing compatibility and model support; cancel monthly anytime or save with annual, after a 7-day trial."}},
 {"@type":"Question","name":"Which models are supported?","acceptedAnswer":{"@type":"Answer","text":"Any OpenAI-compatible endpoint, including DeepSeek, OpenAI, and local LLMs via proxy."}},
 {"@type":"Question","name":"How do refunds work?","acceptedAnswer":{"@type":"Answer","text":"A full-function 7-day trial comes first, followed by a no-questions 7-day refund window."}}]}</script>
 
@@ -637,6 +626,10 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
       </div>
     </div>
     <div class="copy"><span data-zh="© 2026 Toknife · 版權所有">© 2026 Toknife · All rights reserved</span><span data-zh="本機打造 · 無追蹤 · OpenAI 相容">built local · no tracking · OpenAI-compatible</span></div>
+    <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--muted);line-height:1.7;text-align:center">
+      <p style="margin:0 0 8px" data-zh="致謝：Toknife 受開源社群啟發，包含 Caveman 的精簡提示概念、Ponytail 的程式碼感知壓縮，以及 RTK 對透明量測的重視。感謝開源貢獻者，功能精簡的 Lite 版已於 GitHub 開源。">Acknowledgments: Toknife is inspired by open-source work including Caveman (terse-prompt concept), Ponytail (code-aware compression) and RTK (transparent measurement). We thank the open-source community; a limited Lite build is open on GitHub.</p>
+      <p style="margin:0" data-zh="節省比例會隨工作負載類型、模型與使用方式而不同；本頁數字來自我們的標準化基準（deepseek-chat，v6.9.88），你的實際結果可能不同。">Savings vary by workload type, model and usage. Figures come from our standardized benchmarks (deepseek-chat, v6.9.88); your actual results may differ.</p>
+    </div>
   </div>
 </footer>
 
@@ -678,7 +671,7 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
   function updateBilling(){
     if(B==='annual'){ba.classList.add('on');bm.classList.remove('on');
       pp.innerHTML='$39<small>/yr</small>';
-      ps.textContent=LANG==='zh'?'約 $3.25/月·最划算':'≈ $3.25/mo · best value';
+      ps.textContent=LANG==='zh'?'約 $3.25/月·年付':'≈ $3.25/mo · annual';
     }else{bm.classList.add('on');ba.classList.remove('on');
       pp.innerHTML='$5<small>/mo</small>';
       ps.textContent=LANG==='zh'?'按月計費·可隨時取消':'billed monthly · cancel anytime';
