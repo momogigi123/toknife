@@ -5,7 +5,7 @@ displayName: Toknife - Universal Token Compression Tool
 version: "6.0.0-lite"
 category: 效率工具 / Efficiency
 tags: [AI工具, Token節省, LLM, 開源, 效率提升, token-optimizer, AI-tools, token-saving, open-source]
-description: 通用 LLM Token 壓縮工具，支援 JSON 數值保真壓縮、Code-aware 多語言代碼壓縮、MCP/API 透明代理。零第三方依賴，跨平台，開源免費。10 任務標準化基準實測平均壓縮率 48.0%。
+description: 通用 LLM Token 壓縮工具，支援 JSON 數值保真壓縮、Code-aware 多語言代碼壓縮、MCP/API 透明代理。零第三方依賴，跨平台，開源免費。
 author: momogigi123
 license: MIT
 ---
@@ -25,7 +25,7 @@ Toknife 是一個通用的 LLM 輸入端 Token 壓縮工具集，幫你在調用
 
 **三大核心功能：**
 
-1. **JSON 數值保真壓縮** — JSON→CSV 去 key 名，壓縮率 53.9%，數值精度 100% 保留
+1. **JSON 數值保真壓縮** — JSON→CSV 去 key 名，數值精度 100% 保留
 2. **Code-aware 多語言代碼壓縮** — 自動識別代碼邊界，只壓縮註釋/空白，不破壞語法
 3. **MCP/API 透明代理** — 對 LLM API 完全透明，無需修改客戶端代碼，改 base_url 即自動壓縮
 
@@ -76,16 +76,11 @@ echo "大段文本" | python scripts/compress_report.py -
 python scripts/cli.py code mycode.py --mode light
 ```
 
-### 實測數據
+### 關於節省數字（重要）
 
-10 任務標準化基準（tiktoken cl100k 精確計數）：
+本倉庫**不宣稱任何離線壓縮百分比**。離線「壓縮前 vs 壓縮後」的 token 對比不等於真實帳單節省（取決於內容類型、模型、prompt cache 命中）。本倉庫曾列出的離線基準數字**已作廢**（量測腳本未呼叫壓縮器，數字無從複核）。
 
-| 指標 | 數值 |
-|------|:----:|
-| 平均壓縮率 | **48.0%** |
-| 中位數 | 43.6% |
-| 最大（數據分析聚合） | 92.4% |
-| 最小（摘要任務） | 10.0% |
+`python scripts/benchmark.py` 可在**你給定的輸入**上自行量測；離線數字僅供相對比較，不構成省錢承諾。
 
 ### 環境要求
 
@@ -123,7 +118,7 @@ Toknife is a universal LLM input-side Token compression toolkit that helps you s
 
 **Three Core Features:**
 
-1. **JSON Lossless Numeric Compression** — JSON→CSV removes key names, 53.9% compression rate, 100% numeric precision preserved
+1. **JSON Lossless Numeric Compression** — JSON→CSV removes key names, 100% numeric precision preserved
 2. **Code-aware Multi-language Compression** — Automatically detects code boundaries, only compresses comments/whitespace, does not break syntax
 3. **MCP/API Transparent Proxy** — Fully transparent to LLM APIs, no client code modification needed, auto-compress by changing base_url
 
@@ -174,16 +169,11 @@ echo "large text" | python scripts/compress_report.py -
 python scripts/cli.py code mycode.py --mode light
 ```
 
-### Benchmark Results
+### About Savings Numbers (Important)
 
-10-task standardized benchmark (tiktoken cl100k precise counting):
+This repo **makes no offline compression-percentage claim**. An offline before/after token comparison is not the same as real bill savings (it depends on content type, model, and prompt-cache hits). The offline benchmark number previously listed here is **retracted** (its script never invoked the compressor, so it cannot be verified by rerunning that script).
 
-| Metric | Value |
-|--------|:-----:|
-| Average Compression Rate | **48.0%** |
-| Median | 43.6% |
-| Max (Data Analysis Aggregation) | 92.4% |
-| Min (Summary Task) | 10.0% |
+Run `python scripts/benchmark.py` to measure on **your own inputs**; offline figures are for relative comparison only and are not a guarantee.
 
 ### Requirements
 
