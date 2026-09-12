@@ -76,12 +76,6 @@ echo "大段文本" | python scripts/compress_report.py -
 python scripts/cli.py code mycode.py --mode light
 ```
 
-### 關於節省數字（重要）
-
-本倉庫**不宣稱任何離線壓縮百分比**。離線「壓縮前 vs 壓縮後」的 token 對比不等於真實帳單節省（取決於內容類型、模型、prompt cache 命中）。本倉庫曾列出的離線基準數字**已作廢**（量測腳本未呼叫壓縮器，數字無從複核）。
-
-`python scripts/benchmark.py` 可在**你給定的輸入**上自行量測；離線數字僅供相對比較，不構成省錢承諾。
-
 ### 環境要求
 
 - Python 3.7+，跨平台（Windows/macOS/Linux）
@@ -168,12 +162,6 @@ python scripts/cli.py compress input.json
 echo "large text" | python scripts/compress_report.py -
 python scripts/cli.py code mycode.py --mode light
 ```
-
-### About Savings Numbers (Important)
-
-This repo **makes no offline compression-percentage claim**. An offline before/after token comparison is not the same as real bill savings (it depends on content type, model, and prompt-cache hits). The offline benchmark number previously listed here is **retracted** (its script never invoked the compressor, so it cannot be verified by rerunning that script).
-
-Run `python scripts/benchmark.py` to measure on **your own inputs**; offline figures are for relative comparison only and are not a guarantee.
 
 ### Requirements
 
