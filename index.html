@@ -267,7 +267,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
       <a href="#usecases" data-zh="使用場景">Use cases</a>
       <a href="#pricing" data-zh="定價">Pricing</a>
       <a href="#faq" data-zh="常見問題">FAQ</a>
-      <a href="#business" data-zh="企業方案">For business</a>
     </nav>
     <div class="nav-right">
       <button class="lang-btn" id="langBtn">中文</button>
@@ -527,18 +526,6 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
         </ul>
         <button class="btn btn-dark" data-soon="Team checkout opens with the store at launch." data-soon-zh="團隊方案於商店上線時開通結帳。" data-zh="選擇 Team">Choose Team</button>
       </div>
-      <div class="plan reveal">
-        <h3>Enterprise</h3>
-        <div class="price" style="font-size:30px" data-zh="客製報價">Custom</div>
-        <div class="sub" data-zh="不限裝置·私有部署">unlimited seats · private rollout</div>
-        <ul>
-          <li data-zh="不限裝置數">Unlimited devices</li>
-          <li data-zh="本地／私有部署">On-prem / private deployment</li>
-          <li data-zh="付費 POC 與書面報告">Paid POC &amp; written report</li>
-          <li data-zh="合約與開立發票">Statement of work &amp; invoicing</li>
-        </ul>
-        <button class="btn btn-dark" data-soon="Business inquiries route to our team mailbox once the support address is set." data-soon-zh="客服信箱設定後，企業諮詢將轉至團隊信箱。" data-zh="聯絡我們">Talk to us</button>
-      </div>
     </div>
     <div class="lifetime-bar reveal" style="justify-content:center;text-align:center">
       <div>
@@ -595,22 +582,6 @@ client = OpenAI(base_url=<span class="hl">"http://127.0.0.1:8001/v1"</span>, api
 {"@type":"Question","name":"Why subscription-only, with no lifetime option?","acceptedAnswer":{"@type":"Answer","text":"Subscriptions at $5/mo or $39/yr fund ongoing compatibility and model support; cancel monthly anytime or save with annual, after a 7-day trial."}},
 {"@type":"Question","name":"Which models are supported?","acceptedAnswer":{"@type":"Answer","text":"Any OpenAI-compatible endpoint, including DeepSeek, OpenAI, and local LLMs via proxy."}},
 {"@type":"Question","name":"How do refunds work?","acceptedAnswer":{"@type":"Answer","text":"A full-function 7-day trial comes first, followed by a no-questions 7-day refund window."}}]}</script>
-
-<!-- ============ FOR BUSINESS (dark) ============ -->
-<section class="biz dark" id="business">
-  <div class="wrap biz-grid">
-    <div>
-      <div class="eyebrow" data-zh="企業方案 · 產業團隊">FOR BUSINESS · INDUSTRY TEAMS</div>
-      <h2 style="font-size:clamp(28px,3.4vw,44px);margin-bottom:18px" data-zh="不確定值不值得？買一場定價明確的驗證，而不是一句承諾。">Not sure it’s worth it? Buy a fixed-price proof, not a promise.</h2>
-      <p class="body" data-zh="對於在跑長知識庫問答、工單與會議記錄的工廠、傳產團隊與內部 IT：我們用<b>你的真實工作負載</b>跑 Toknife，在你做出任何承諾前，交給你一份量測好的節省報告。">For factories, traditional-industry teams and internal IT running long knowledge-base Q&amp;A, tickets and meeting records: we run Toknife against <b>your real workloads</b> and hand back a measured savings report before you commit to anything.</p>
-      <button class="btn btn-light" data-soon="The POC intake form and team mailbox are wired up once the support address is confirmed." data-soon-zh="客服信箱確認後，將接上 POC 預約表單與團隊信箱。" data-zh="預約付費 POC">Book a paid POC</button>
-    </div>
-    <div class="poc">
-      <div class="n">$199–250</div>
-      <div class="d" data-zh="定價固定的 POC 體檢包·在你的資料上做基線對比·若簽約可抵扣年費·輸出可複現的書面報告。">Fixed-price POC health-check · baseline vs. Toknife on your data · credited toward an annual plan if you sign · written, reproducible report.</div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ FINAL CTA ============ -->
 <section class="final">
