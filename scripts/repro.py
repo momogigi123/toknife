@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Token Saver v2.0 自包含複現腳本（任何機器可跑，無需 API key/GPU）。
+"""Toknife Lite v2.0 自包含複現腳本（任何機器可跑，無需 API key/GPU）。
 支援三種場景：single（單輪）、agent（工具回傳）、multiround（多輪對話）。
 執行：pip install tiktoken && python repro.py [single|agent|multiround|all]
 """
@@ -39,7 +39,7 @@ def scenario_single():
              "最後，從政策角度而言，建議建立需求響應機制、鼓勵儲能調度，並以碳定價引導企業與民眾"
              "改變用電行為。綜合而言，省電是成本最低、見效最快的減碳手段，值得大力推廣。")
 
-    # B 版：套 token saver（精簡 system + 資料摘要 + 結構化短答）
+    # B 版：套 toknife-lite（精簡 system + 資料摘要 + 結構化短答）
     SYS_B = "Energy analyst. Output structured, concise results only."
     DATA_B = ("Summary: Power = ~40% global CO2, coal dominant. 3 levers: behavior(lights/AC), "
               "equipment(LED/efficient motor), structure(renewables/grid). 1 kWh saved = 0.8kg CO2. Cheapest decarbonization.")

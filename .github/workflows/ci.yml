@@ -1,4 +1,4 @@
-name: Token Saver CI
+name: Toknife Lite CI
 
 on:
   push:

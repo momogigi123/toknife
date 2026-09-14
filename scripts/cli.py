@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""ts — Token Saver 統一 CLI 入口（v5.3.4，合併豆包版）。
+"""ts — Toknife Lite 統一 CLI 入口（6.1-lite）。
 
 用法:
   ts compress <file>           自動檢測類型，壓縮檔案內容
@@ -9,7 +9,7 @@
   ts agg <file> [--sort-by f]  校準聚合（Top-N + 異常 + 統計）
   ts code <file> [--mode]      代碼壓縮（light/medium）
   ts verify                    運行全部驗證腳本
-  ts benchmark                 運行 LLM 端到端基準
+  ts benchmark                 運行離線輸入端基準（不需 API key）
   ts --version                 顯示版本
 
 所有子命令支援 --help 查看詳細參數。
@@ -22,7 +22,7 @@ import sys
 # 確保能 import 同目錄模組
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-__version__ = "6.0.0-lite"
+__version__ = "6.1-lite"
 
 
 def cmd_compress(args):
@@ -151,42 +151,39 @@ def cmd_code(args):
 
 
 def cmd_verify(args):
-    """運行全部驗證腳本。"""
+    """運行自帶驗證腳本（離線）。"""
     import subprocess
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    verify_script = os.path.join(script_dir, "verify_code_v53.py")
-
-    if not os.path.exists(verify_script):
-        print("[驗證] 找不到 verify_code_v53.py", file=sys.stderr)
-        return 1
-
-    print("[驗證] 運行 verify_code_v53.py ...")
-    result = subprocess.run(
-        [sys.executable, verify_script],
-        capture_output=True, text=True, cwd=script_dir
-    )
-    print(result.stdout)
-    if result.stderr:
-        print(result.stderr, file=sys.stderr)
-    return result.returncode
+    names = ["verify_code_v55.py", "verify_json_v56.py"]
+    rc = 0
+    for name in names:
+        vpath = os.path.join(script_dir, name)
+        if not os.path.exists(vpath):
+            print(f"[驗證] 找不到 {name}", file=sys.stderr)
+            rc = 1
+            continue
+        print(f"[驗證] 運行 {name} ...")
+        result = subprocess.run([sys.executable, vpath], capture_output=True,
+                                text=True, cwd=script_dir)
+        print(result.stdout)
+        if result.stderr:
+            print(result.stderr, file=sys.stderr)
+        rc = rc or result.returncode
+    return rc
 
 
 def cmd_benchmark(args):
-    """運行 LLM 端到端基準。"""
+    """運行離線輸入端基準（不需 API key）。"""
     import subprocess
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    bench_script = os.path.join(script_dir, "benchmark_llm.py")
-
+    bench_script = os.path.join(script_dir, "benchmark.py")
     if not os.path.exists(bench_script):
-        print("[基準] 找不到 benchmark_llm.py", file=sys.stderr)
+        print("[基準] 找不到 benchmark.py", file=sys.stderr)
         return 1
-
-    print("[基準] 運行 benchmark_llm.py（需配置 API key）...")
+    print("[基準] 運行離線輸入端基準 benchmark.py（不需 API key）...")
     cmd = [sys.executable, bench_script]
-    if args.model:
-        cmd.extend(["--model", args.model])
-    if args.tasks:
-        cmd.extend(["--tasks", str(args.tasks)])
+    if getattr(args, "json", False):
+        cmd.append("--json")
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=script_dir)
     print(result.stdout)
     if result.stderr:
@@ -197,11 +194,11 @@ def cmd_benchmark(args):
 def main():
     parser = argparse.ArgumentParser(
         prog="ts",
-        description="Token Saver — 上下文 token 壓縮工具集（v5.3.4，合併豆包版）",
+        description="Toknife Lite — 輸入端 token 壓縮工具集（開源版 6.1-lite）",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__
     )
-    parser.add_argument("--version", action="version", version=f"Token Saver v{__version__}")
+    parser.add_argument("--version", action="version", version=f"Toknife Lite v{__version__}")
 
     sub = parser.add_subparsers(dest="command", help="子命令")
 
@@ -239,9 +236,8 @@ def main():
     p_ver.set_defaults(func=cmd_verify)
 
     # benchmark
-    p_bench = sub.add_parser("benchmark", help="運行 LLM 端到端基準")
-    p_bench.add_argument("--model", help="模型名（需配置 API key）")
-    p_bench.add_argument("--tasks", type=int, help="任務數")
+    p_bench = sub.add_parser("benchmark", help="運行離線輸入端基準（不需 API key）")
+    p_bench.add_argument("--json", action="store_true", help="輸出機器可讀 JSON")
     p_bench.set_defaults(func=cmd_benchmark)
 
     args = parser.parse_args()

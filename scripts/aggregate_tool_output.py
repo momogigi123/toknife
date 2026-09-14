@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Token Saver v2.0 — 工具回傳自動聚合腳本
+Toknife Lite v2.0 — 工具回傳自動聚合腳本
 將大型 CSV/JSON 工具回傳壓縮為精簡結構，減少 80-95% 進入 LLM 上下文的 token。
 
 用法：

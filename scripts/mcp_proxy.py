@@ -289,7 +289,7 @@ def self_test():
 
 if __name__ == "__main__":
     import argparse
-    ap = argparse.ArgumentParser(description="Token Saver v5.3 MCP 透明代理")
+    ap = argparse.ArgumentParser(description="Toknife Lite v5.3 MCP 透明代理")
     ap.add_argument("--downstream", help="下游 MCP server 啟動命令（stdio），如 'python my_server.py'")
     ap.add_argument("--min-tokens", type=int, default=2000, help="低於此 token 的回傳不壓（防淨成本）")
     ap.add_argument("--no-compress", default="", help="逗號分隔的工具名正則，命中則不壓（如 'math_,code_'）")

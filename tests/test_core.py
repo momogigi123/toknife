@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Token Saver 核心功能 pytest 測試（v5.4）。
+"""Toknife Lite 核心功能 pytest 測試（v5.4）。
 
 覆蓋：JSON 壓縮、BOM 處理、異常檢測、代碼壓縮（Py/JS/Go）、
 MCP 代理、品質指標、批量壓縮。

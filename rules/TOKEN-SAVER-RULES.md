@@ -1,19 +1,19 @@
-# Token Saver 跨平台規則（Claude Code / Codex / Cursor 通用）
+# Toknife Lite 跨平台規則（Claude Code / Codex / Cursor 通用）
 
-> 讓任何 AI 編程工具獲得 token-saver 的「壓縮紀律」。
+> 讓任何 AI 編程工具獲得 toknife-lite 的「壓縮紀律」。
 > 複製本文件到對應位置即可生效（規則注入，無需安裝 Python 引擎）。
 
 ## 安裝位置
 
 | 平台 | 放哪 |
 |------|------|
-| Claude Code | `.clinerules/token-saver.md` 或 `CLAUDE.md` |
+| Claude Code | `.clinerules/toknife-lite.md` 或 `CLAUDE.md` |
 | Codex | `AGENTS.md`（加入本節） |
-| Cursor / Windsurf | `.cursor/rules/token-saver.md` / `.windsurf/rules/token-saver.md` |
+| Cursor / Windsurf | `.cursor/rules/toknife-lite.md` / `.windsurf/rules/toknife-lite.md` |
 
 ## 規則內容
 
-# Token Saver 常駐規範（v6.7.2）
+# Toknife Lite 常駐規範（v6.7.2）
 
 ## 壓縮紀律（工具/檢索回傳進上下文前）
 - 工具回傳 >50 行或 >2000 token：先壓縮再入上下文

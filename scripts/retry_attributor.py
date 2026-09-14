@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Token Saver v3.1 — 失敗重試 Token 歸因分析
+Toknife Lite v3.1 — 失敗重試 Token 歸因分析
 分析每次重試的根本原因，統計有多少 token 是因為壓縮過度導致的重試浪費。
 如果壓縮節省 < 重試增加，自動建議關閉該策略。
 
