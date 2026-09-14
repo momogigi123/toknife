@@ -59,7 +59,7 @@ def scenario_single():
     print(f"{'輸出':<8}{a_out:>12}{b_out:>12}{pct(a_out,b_out):>10}")
     print(f"{'總計':<8}{a_tot:>12}{b_tot:>12}{pct(a_tot,b_tot):>10}")
     print("⚠️ 註：本場景 B 版為**極限構造**（輸入僅 93 tokens，資訊量僅存骨架）；")
-    print("   「資訊等價」未嚴格驗證，實際 Agent 場景請以典型預期 30–50% 為準。\n")
+    print("   「資訊等價」未嚴格驗證；實際幅度視內容類型與結構而定，請以自己的 usage 實測為準。\n")
     return a_tot, b_tot
 
 # ===== 場景 2：Agent 工具回傳 =====
@@ -85,7 +85,7 @@ def scenario_agent():
              "2）快充線可考慮促銷活動刺激銷售；3）手機殼應推出新款式吸引消費者。"
              "另外缺陷率方面，部分產品超過 10%，需要加強品質管控。")
 
-    # B 版：聚合後的精簡數據（對應 aggregate_tool_output.py 的輸出）
+    # B 版：聚合後的精簡數據
     aggregated = (
         "[資料摘要] 共200行，已聚合\n"
         "[統計]\n"
@@ -161,7 +161,7 @@ def scenario_multiround():
     print(f"{'輸出':<8}{a_out:>12}{b_out:>12}{pct(a_out,b_out):>10}")
     print(f"{'總計':<8}{a_tot:>12}{b_tot:>12}{pct(a_tot,b_tot):>10}")
     print("⚠️ 註：本場景 B 版輸出較 A 長（輸出降幅為負）——多輪壓縮主攻**輸入端**，")
-    print("   輸出端未必省；實際收益以輸入端節約為主（10 輪以上輸入可省 70–80%）。\n")
+    print("   輸出端未必省；實際收益以輸入端節約為主，幅度取決於輪數與內容，請以實測 usage 為準。\n")
     return a_tot, b_tot
 
 

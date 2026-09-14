@@ -2,7 +2,7 @@
 """
 Toknife Lite v5.2 — JSON 輕量壓縮
 將 JSON（dict 或 list[dict]）轉為 CSV，去除每個物件重複出現的欄位名（key），
-預期省 30-55% token。採用標準 csv 模組保真：含分隔符/換行的字串會自動引號。
+省幅取決於欄位重複程度與內容類型，非固定值；負收益的小規律 JSON 會自動退回原文。採用標準 csv 模組保真：含分隔符/換行的字串會自動引號。
 
 用法：
     from json_compressor import compress_json_light, should_compress_json

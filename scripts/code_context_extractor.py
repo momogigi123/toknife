@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """code_context_extractor.py — 代碼場景上下文自動精簡（豆包二輪 P0 落地）
-把程式碼壓成「簽名級」上下文再送 LLM，比整檔省 80%+ token。
+把程式碼壓成「簽名級」上下文再送 LLM；實際省幅視程式碼結構而定，需以 usage 實測為準。
 用法：
   python code_context_extractor.py app.py                 # 單檔簽名
   python code_context_extractor.py src/ --recursive        # 目錄遞迴
@@ -135,8 +135,8 @@ def _fold_function(node, src, fold_threshold, keep_head) -> list:
 def compress_code_medium(path: str, fold_threshold: int = 40, keep_head: int = 8) -> str:
     """v5.3：medium 檔代碼壓縮——折疊長函數體（簽名+前N行+控制流骨架），短函數整留。
 
-    定位：在 light（保全部邏輯、省 ~13-31%）與 signature（只抽簽名、省 ~90% 但丟邏輯）
-    之間取折衷：大檔程式碼降幅拉高到 ~50%，同時保留控制流骨架與短函數完整邏輯。
+    定位：在 light（保全部邏輯、省幅較小）與 signature（只抽簽名、省幅較大但會丟部分邏輯）
+    之間取折衷：對大檔程式碼做更積極折疊，同時保留控制流骨架與短函數完整邏輯；實際幅度視程式碼而定。
     風險：長函數深處的副作用/例外路徑/效能細節會被折疊掉 → 深層 debug 任務仍用 light。
     """
     with open(path, encoding="utf-8-sig") as f:
@@ -471,7 +471,7 @@ if __name__ == "__main__":
     ap.add_argument("--compress-body", action="store_true", help="含函數體但去註解/空行/docstring")
     ap.add_argument("--light", action="store_true", help="v5.1：整檔輕量壓縮（保邏輯去註解，code-review 用）")
     ap.add_argument("--medium", action="store_true",
-                    help="v5.3：medium 折疊（簽名+前N行+控制流骨架，長函數折疊，降幅→~50%%）")
+                    help="v5.3：medium 折疊（簽名+前N行+控制流骨架，長函數折疊；實際降幅視程式碼結構）")
     ap.add_argument("--fold-threshold", type=int, default=40, help="medium：函數體超過此行數才折疊")
     ap.add_argument("--lang", choices=["py", "js", "go", "auto"], default="auto",
                     help="v5.4：指定語言（auto=按擴展名檢測）")

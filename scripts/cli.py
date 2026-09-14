@@ -71,7 +71,7 @@ def cmd_compress(args):
 
 
 def cmd_report(args):
-    """壓縮並回報節約量（compress_report 的 CLI 封裝）。"""
+    """讀取輸入、壓縮並回報節約量（本機、零 API）。"""
     from mcp_proxy import CompressionEngine, est_tokens
 
     if args.src == "-":

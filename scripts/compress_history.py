@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Toknife Lite v2.0 — 對話歷史壓縮腳本
-將多輪對話歷史壓縮為結構化狀態，減少 60-80% 進入 LLM 上下文的 token。
+將多輪對話歷史壓縮為結構化狀態以減少進入 LLM 上下文的 token；實際幅度取決於輪數、每輪長度與內容類型，請以實測為準。
 
 用法：
     from compress_history import compress_messages, sliding_window, extract_state
