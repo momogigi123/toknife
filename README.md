@@ -5,10 +5,6 @@
 
 > English | [中文](#-中文)
 
-> **Pro is now on sale (subscription-only).** This repository is the free, MIT-licensed **Lite** (input-only) edition. The commercial **Pro** edition adds output-side optimization, 100%-reversible long context, a self-learning loop and a one-click GUI. Store: <https://toknife.lemonsqueezy.com> · Pricing: <https://momogigi123.github.io/toknife/#pricing> (Pro US$5/mo or US$39/yr, Team US$149/yr for up to 5 devices; 7-day free trial). Update 2026-09-15: the Pro subscription is live on Lemon Squeezy.
->
-> **Pro 已開賣（僅訂閱制）。** 此倉庫為免費 MIT 的 **Lite**（僅輸入端）開源版；商業 **Pro** 版另提供輸出端最佳化、100% 可逆長文、自學習閉環與一鍵 GUI。開賣商店：<https://toknife.lemonsqueezy.com> · 定價：<https://momogigi123.github.io/toknife/#pricing>（Pro 每月 US$5 或每年 US$39、Team 每年 US$149 含最多 5 裝置，皆附 7 天免費試用）。更新 2026-09-15：Pro 訂閱版已於 Lemon Squeezy 正式上架。
-
 ---
 
 ## 🇬🇧 English
@@ -83,7 +79,7 @@ Run `python scripts/benchmark.py` (tiktoken cl100k_base, reproducible).
 | Hard budget caps, visual dashboard, one-click GUI | ❌ | ✅ |
 | Multi-device license & team support | ❌ | ✅ |
 
-Pro is **subscription-only** (no lifetime plan): Pro US$5/month or US$39/year, Team US$149/year for up to 5 devices, each with a 7-day free trial. Buy on the [Lemon Squeezy store](https://toknife.lemonsqueezy.com) or see the [pricing page](https://momogigi123.github.io/toknife/#pricing).
+Pro is **subscription-only** (no lifetime plan). Pricing and the purchase link are in the **[Get Pro](#get-pro)** section below, or see the [pricing page](https://momogigi123.github.io/toknife/#pricing).
 
 ### Honest notes
 - Lite truncates very long text (>2000 chars) and marks the cut point; use Pro for 100%-restorable long context.
@@ -92,6 +88,14 @@ Pro is **subscription-only** (no lifetime plan): Pro US$5/month or US$39/year, T
 
 ### Acknowledgments
 Toknife is inspired by open-source projects including **Caveman, Ponytail and RTK**. Thank you to their authors and to the open-source community.
+
+### Get Pro
+The commercial **Pro** edition is **subscription-only** (no lifetime plan), sold on Lemon Squeezy:
+- Pro: **US$5/month** or **US$39/year**
+- Team: **US$149/year** for up to 5 devices
+- Every paid plan includes a **7-day free trial**
+
+Store: <https://toknife.lemonsqueezy.com> · Pricing: <https://momogigi123.github.io/toknife/#pricing>
 
 ### License
 MIT — free and commercial use allowed, keep the copyright notice. By momogigi123.
@@ -182,7 +186,7 @@ ts code mycode.py --mode light
 | 硬預算上限、視覺儀表板、一鍵 GUI | ❌ | ✅ |
 | 多裝置授權與團隊支援 | ❌ | ✅ |
 
-Pro **僅訂閱制**（無終身買斷）：Pro 每月 US$5 或每年 US$39、Team 每年 US$149（最多 5 裝置），皆附 7 天免費試用。可至 [Lemon Squeezy 商店](https://toknife.lemonsqueezy.com) 訂購，或見[官網價格頁](https://momogigi123.github.io/toknife/#pricing)。
+Pro **僅訂閱制**（無終身買斷）。價格與購買連結見下方「**取得 Pro**」單元，或參考[官網價格頁](https://momogigi123.github.io/toknife/#pricing)。
 
 ### 誠實說明
 - Lite 長文本（>2000 字元）採基礎截斷，會在原文標註截斷位置；需要 100% 可還原請用 Pro。
@@ -191,6 +195,14 @@ Pro **僅訂閱制**（無終身買斷）：Pro 每月 US$5 或每年 US$39、Te
 
 ### 致謝
 Toknife 受開源社群專案啟發，包含 **Caveman、Ponytail、RTK**，感謝這些作者對開源生態的貢獻。我們站在社群的肩膀上，也歡迎回饋。
+
+### 取得 Pro
+商業 **Pro** 版為**僅訂閱制**（無終身買斷），於 Lemon Squeezy 銷售：
+- Pro：**每月 US$5** 或 **每年 US$39**
+- Team：**每年 US$149**（最多 5 裝置）
+- 付費方案皆附 **7 天免費試用**
+
+開賣商店：<https://toknife.lemonsqueezy.com> ｜定價：<https://momogigi123.github.io/toknife/#pricing>
 
 ### 許可證
 MIT License：開源免費、可商用，需保留版權聲明。作者 momogigi123。
